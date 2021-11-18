@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 const App = () => {
   // const [wordCount, setWordCount] = useState(0)
   const [text, setText] = useState("")
-  const [count, setCount] =useState(0)
   const [countdown, setCountdown] = useState(5)
   const [running, setRunning] = useState(false)
+  const [count, setCount] =useState(0)
    
 
   function handleChange(e) {
@@ -13,23 +13,25 @@ const App = () => {
     setText(value)
   }
 
-  function handleCount(text) {
+  function calculateWords(text) {
     const wordArray = text.trim().split(" ")
-    const filteredArray = wordArray.filter(word => word !== "").length
-    setCount(filteredArray)
+    return wordArray.filter(word => word !== "").length
   }
 
   useEffect(() => {
     let time = ""
-      if (running && countdown > 0) {
-        time = setTimeout(() => {
-          setCountdown(time => time - 1)
-        }, 1000);
-      } else if (countdown === 0) {
-        setRunning(false)
-        setCountdown(5)
-      }
-      return () => clearTimeout(time)
+    if (running && countdown > 0) {
+      setCount(0)
+      time = setTimeout(() => {
+      setCountdown(time => time - 1)
+    }, 1000);
+    } else if (countdown === 0) {
+      setRunning(false)
+      setCount(calculateWords(text));
+      setCountdown(5);
+      setText("")
+    }
+    return () => clearTimeout(time)
   }, [countdown, running])
 
   console.log(running);
