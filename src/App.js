@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 const App = () => {
-  const STARTING_TIME = 5
+  const STARTING_TIME = 15
 
   const [text, setText] = useState("")
   const [countdown, setCountdown] = useState(STARTING_TIME)
